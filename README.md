@@ -9,4 +9,4 @@ Run the following commands from your project root directory after dowloading the
 - php artisan migrate
 - php artisan db:seed --class=CourseSeeder
 
-You need to be authenticated in order to view and manage the courses, [http://localhost:8000/register]
+You need to be authenticated in order to view and manage the courses, [http://localhost:8000/register] or your domain in question
