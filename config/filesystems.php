@@ -59,6 +59,8 @@ return [
         'resources' => [
             'driver' => 'local',
             'root' => resource_path('files'),
+            'url' => env('APP_URL').'/resources/files',
+            'visibility' => 'public',
         ],
     ],
 

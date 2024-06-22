@@ -8,4 +8,4 @@ Route::get('/user', function (Request $request) {
     return $request->user();
 })->middleware('auth:sanctum');
 
-Route::get('/api/courses', [CourseController::class, 'list']);
+Route::get('/courses', [CourseController::class, 'list']);
