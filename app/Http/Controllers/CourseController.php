@@ -42,8 +42,8 @@ class CourseController extends Controller
 
         if ($file) {
             $imageName = time() . $file->getClientOriginalName();
-            $imagePath = "course/$createdCourse->id/$imageName";
-            Storage::disk('resources')->put($imagePath, file_get_contents($file));
+            $imagePath = "images/course/$createdCourse->id/$imageName";
+            Storage::disk('public')->put($imagePath, file_get_contents($file));
             $createdCourse->fill(['image' => $imageName])->save();
         }
 
@@ -63,11 +63,11 @@ class CourseController extends Controller
         if ($file) {
         
             $imageName = time() . $file->getClientOriginalName();
-            $imagePath = "course/$course->id/$imageName";
-            $imageDirectory = "course/$course->id";
+            $imagePath = "images/course/$course->id/$imageName";
+            $imageDirectory = "images/course/$course->id";
 
-            Storage::disk('resources')->deleteDirectory($imageDirectory);
-            Storage::disk('resources')->put($imagePath, file_get_contents($file));
+            Storage::disk('public')->deleteDirectory($imageDirectory);
+            Storage::disk('public')->put($imagePath, file_get_contents($file));
             $course->image = $imageName;
         }
 
@@ -86,10 +86,10 @@ class CourseController extends Controller
     {
 
         // Delete the directory and all its contents
-        $imagePath = "course/$course->id";
+        $imagePath = "images/course/$course->id";
 
-        if (Storage::disk('resources')->exists($imagePath)) {
-            Storage::disk('resources')->deleteDirectory($imagePath);
+        if (Storage::disk('public')->exists($imagePath)) {
+            Storage::disk('public')->deleteDirectory($imagePath);
         }
 
         $course->delete();

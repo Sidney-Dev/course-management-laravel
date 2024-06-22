@@ -8,7 +8,7 @@
 
             <div class="image-container mt-3">
                 <label><strong>Course Image</strong></label>
-                <img class="img-responsive" src="{{ Vite::asset($course->image_path) }}" alt="{{ $course->name }}">
+                <img class="img-responsive" src="{{ asset("storage/images/course/{$course->id}/{$course->image}") }}" class="card-img" alt="{{ $course->name }}">
             </div>
             
         </div>

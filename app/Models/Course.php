@@ -13,6 +13,6 @@ class Course extends Model
 
     public function getImagePathAttribute(): string
     {
-        return "resources/files/course/{$this->id}/{$this->image}";
+        // return "resources/files/course/{$this->id}/{$this->image}";
     }
 }
