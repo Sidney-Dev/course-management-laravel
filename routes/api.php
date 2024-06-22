@@ -13,3 +13,4 @@ Route::get('courses', [CourseController::class, 'list']);//->middleware('auth:sa
 
 Route::post('login', [AuthController::class, 'login']);
 Route::post('logout', [AuthController::class, 'logout']);
+Route::post('logout', [AuthController::class, 'register']);
