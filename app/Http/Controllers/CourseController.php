@@ -6,6 +6,7 @@ use App\Models\Course;
 use Illuminate\Http\Request;
 use App\Http\Requests\CourseCreateRequest;
 use Illuminate\Support\Facades\Storage;
+use Illuminate\Support\Facades\Gate;
 
 class CourseController extends Controller
 {
@@ -14,16 +15,14 @@ class CourseController extends Controller
      */
     public function index()
     {
+        $response = Gate::inspect('viewAny', Course::class);
+
+        if(empty($response->allowed())) {
+            return redirect()->back()->withError($response->message());
+        }
+
         $courses = Course::all();
         return view('course.index', compact('courses'));
-    }
-
-    /**
-     * Show the form for creating a new resource.
-     */
-    public function create()
-    {
-        //
     }
 
     /**
@@ -31,8 +30,12 @@ class CourseController extends Controller
      */
     public function store(Request $request)
     {
-
         // Create the course
+        $response = Gate::inspect('create', Course::class);
+
+        if(empty($response->allowed())) {
+            return redirect()->back()->withError($response->message());
+        }
         $createdCourse = Course::create([
             'name' => $request->name,
             'image' => ''
@@ -55,6 +58,11 @@ class CourseController extends Controller
      */
     public function update(Request $request, Course $course)
     {
+        $response = Gate::inspect('update', $course);
+
+        if(empty($response->allowed())) {
+            return redirect()->back()->withError($response->message());
+        }
 
         $course->name = $request->name;
 
@@ -85,6 +93,12 @@ class CourseController extends Controller
     public function destroy(Course $course)
     {
 
+        $response = Gate::inspect('delete', $course);
+
+        if(empty($response->allowed())) {
+            return redirect()->back()->withError($response->message());
+        }
+
         // Delete the directory and all its contents
         $imagePath = "images/course/$course->id";
 
@@ -95,12 +109,6 @@ class CourseController extends Controller
         $course->delete();
 
         return redirect()->back();
-    }
-
-
-    public function list() 
-    {
-        return Course::all();
     }
 }
 
