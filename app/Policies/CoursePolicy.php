@@ -14,17 +14,16 @@ class CoursePolicy
     {
         if($user->roles()->where('name', 'admin')->exists()) return true;
 
-        return null;
+        return false;
     }
     /**
      * Determine whether the user can view any models.
      */
     public function viewAny(User $user): bool
     {
-        // return true;
         if(Auth::user()->roles()->where('name', 'admin')->exists()) return true;
 
-        return null;
+        return false;
     }
 
     /**
@@ -40,7 +39,9 @@ class CoursePolicy
      */
     public function create(User $user): bool
     {
-        //
+        if(Auth::user()->roles()->where('name', 'admin')->exists()) return true;
+
+        return false;
     }
 
     /**
